@@ -2,9 +2,10 @@
 <h3>Download wallpapers from wallpaper.cc</h3>
 
 ---
+
 <h2>Dependencies:<h2/>
 Program is made in java (actually in groovy, but it's compiled to .class or to .jar).  
-***So you need java - openjre 17.***  
+So you need java - openjre 17. 
 How to install java?  
 For example:  
 
@@ -15,6 +16,7 @@ For example:
 `apt install openjdk-17-jre`
 
 ---
+
 <h2>How to download<h2/>
 Go to https://github.com/DronDrin/WallpaperSearcher, select last release, and just download it.  
 But if you want to make your own .jar file, you can clone repository https://github.com/DronDrin/WallpaperSearcher,  
@@ -22,7 +24,9 @@ and run this command:
 `gradle jar`  
 Of course, you must have gradle installed on your system.  
 So that's all! Your .jar is located at ROOT_DIRECTORY/build/libs/.
+
 ---
+
 <h2>How to run:<h2/>
 Program is .jar file.  
 So to start it you should enter this command:  
