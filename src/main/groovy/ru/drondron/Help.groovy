@@ -1,5 +1,8 @@
 package ru.drondron
 
+/**
+ * Utility class. Used to read help.txt resource file
+ */
 class Help {
     private static String helpText = null
 

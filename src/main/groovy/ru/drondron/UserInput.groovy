@@ -2,19 +2,36 @@ package ru.drondron
 
 import java.util.regex.Pattern
 
+/**
+ * Utility class. Useful reading text from console
+ */
 class UserInput {
     private static Scanner scanner = new Scanner(System.in)
 
+    /**
+     * Prints message, and reads line
+     */
     static String stringInput(String message) {
         print message
         scanner.nextLine()
     }
 
+    /**
+     * Prints message, and reads number (line with number)
+     * @param message message to print
+     * @return number from user
+     */
     static Integer intInput(String message) {
         def input = closureInput(message) { it.isInteger() }
         (input.isBlank() || input == null) ? null : input.toInteger()
     }
 
+    /**
+     * Prints message, then read line, validates it by closure
+     * @param message message to print
+     * @param closure closure for validation
+     * @return line
+     */
     static String closureInput(String message, Closure closure) {
         String input
         do input = stringInput(message)
@@ -22,10 +39,20 @@ class UserInput {
         input
     }
 
+    /**
+     * Prints message, then read line, validates it by regex
+     * @param message message to print
+     * @param regex regex for validation
+     * @return line
+     */
     static String regexInput(String message, Pattern regex) {
         closureInput(message, { it =~ regex })
     }
 
+    /**
+     * set all fields in SearchParameters object querying it from user
+     * @param searchParameters object to set fields in
+     */
     static void setAllByUserInput(SearchParameters searchParameters) {
         println "Enter all parameters:"
         println "(Enter nothing to use last entered value)"

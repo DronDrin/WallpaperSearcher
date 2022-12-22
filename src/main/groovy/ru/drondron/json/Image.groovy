@@ -3,6 +3,9 @@ package ru.drondron.json
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 
+/**
+ * Main entity in JSON response
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 class Image {
     String id
