@@ -1,0 +1,10 @@
+.gradle
+build
+.idea
+gradle
+lib
+cache.properties
+gradlew
+gradlew.bat
+WallpaperSearcher.iml
+wallpapers
