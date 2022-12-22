@@ -62,7 +62,7 @@ class WebFetcher {
                         it.dimensionY < (searchParameters.atLeast.split("x")[1].toInteger()) ||
                         (Math.round(((double) it.dimensionX / it.dimensionY) * scale) / scale !=
                                 Math.round(scale * searchParameters.ratio.split("x")[0].toDouble() / searchParameters.ratio.split("x")[1].toDouble()) / scale)) {
-                    print("image %s has wrong resolution(%dx%d)! It will not be downloaded%n".formatted it.id, it.dimensionX, it.dimensionY, lastMessage, lastMessageIsFinished, true)
+                    print("image %s has wrong resolution(%dx%d)! It will not be downloaded".formatted(it.id, it.dimensionX, it.dimensionY), lastMessage, lastMessageIsFinished, true)
                     finishedWithError.incrementAndGet()
                     return
                 }
