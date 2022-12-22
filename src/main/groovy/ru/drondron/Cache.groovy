@@ -8,7 +8,6 @@ class Cache {
         cacheFile = new File(executing + "/" + Settings.getAppProperty("cacheFile"))
         if (!cacheFile.exists())
             cacheFile.createNewFile()
-        println executing
         cache.load(new FileInputStream(cacheFile))
     }
 
