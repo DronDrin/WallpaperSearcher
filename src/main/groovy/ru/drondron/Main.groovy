@@ -5,6 +5,11 @@ package ru.drondron
  */
 class Main {
     static void main(String[] args) {
+        if (Cache.get("ran-before") == null) {
+            println Help.getHelpText()
+            Cache.set("ran-before", "ran-before")
+            return
+        }
         List<String> arguments = new ArrayList<>(List.of(args))
         if (arguments.contains("-h") || arguments.contains("--help")) {
             println Help.getHelpText()

@@ -11,7 +11,7 @@ class Help {
             helpText = ""
             def scanner = new Scanner(Help.getResourceAsStream("help.txt"))
             while (scanner.hasNextLine())
-                helpText += scanner.nextLine()
+                helpText += scanner.nextLine() + "\n"
         }
         helpText
     }
