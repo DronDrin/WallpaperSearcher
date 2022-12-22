@@ -1,1 +1,56 @@
-help text not created yet :(
+Hello!
+
+----- 0 -- common ----------
+- This program downloads wallpapers from http://wallheaven.cc using its api.
+
+----- 1 -- help -------------
+- this text is shown at first start of program
+- also run program with -h or --help parameter to see this text
+
+----- 2 -- parameters -------
+- There are some parameters:
+--- '-q', '--query': :phrase that used to search wallpapers
+--- '-l', '--at-least': :minimum resolution of wallpaper
+--- '-r', '--ratio': :needed ratio of wallpaper
+--- '-p', '--path': :directory to save wallpapers in. Parent of this directory must exist
+--- '-n', '--number-of-packages': :Wallpapers is downloaded by batches (packages). Size of one package - 24.
+                                    - (Why? Because wallheaven.cc set this value as max query size)
+
+----- 3 -- modes------------
+- The program has two modes:
+--- first - interactive:
+------ program asks you for each parameter
+------ start program with '-i' parameter to use this mode
+--- second - parameterized:
+------ use parameters from second paragraph, for example:
+------ -q nature -l 1920x1080 -r 16x9 -p /home/alex/Wallpapers -n 5
+
+----- 4 -- caching----------
+- agree, it would not be good if you would have to enter each parameter again every time when
+- you start the program. So each time when you enter any parameter, the program saves it.
+- Next time, you can skip this parameter (in all modes), and the program will use saved data.
+- But if you have never entered skipped parameter before, there will an error, so be careful with skipping.
+
+----- 5 -- example----------
+here is an example:
+
+- error ---- image 4djkeo has wrong resolution(1366x768)! It will not be downloaded
+- ok ------- loading file y89yyg.jpeg to /home/alex/Downloads/wallpapers/y89yyg.jpeg
+- ok ------- loading file kwx5x7.jpeg to /home/alex/Downloads/wallpapers/kwx5x7.jpeg
+- ok ------- loading file 8odql1.jpeg to /home/alex/Downloads/wallpapers/8odql1.jpeg
+- error ---- java.io.IOException: File y89yyg.jpeg already exist!
+- error ---- image 2kdemx has wrong resolution(1366x768)! It will not be downloaded
+- ok ------- loading file dg8ddj.jpeg to /home/alex/Downloads/wallpapers/dg8ddj.jpeg
+- error ---- java.io.IOException: File dg8ddj.jpeg already exist!
+- ok ------- loading file zx19qy.jpeg to /home/alex/Downloads/wallpapers/zx19qy.jpeg
+------------ finished 7/24 (2 errors) +++++--=================
+
+- last line is a progress bar.
+- finished 'loaded or can't be loaded wallpapers'/24 ('number of errors' error(s)) ++++---==========
+- Number of pluses means number of successfully downloaded wallpapers
+- Number of minuses means number of wallpapers can't be loaded.
+- Number of equals signs means number of wallpapers that are loading yet.
+
+- message 'File xxxxxx.xxx already exist!' means you already have that file.
+- message 'has wrong resolution' means that wallpaper has too small resolution or wrong ratio
+- (for example, you selected ratio 16x9, but wallpaper has 21x9)
