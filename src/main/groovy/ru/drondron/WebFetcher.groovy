@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import ru.drondron.json.Data
 import ru.drondron.json.Image
 
-import javax.imageio.ImageIO
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 import java.util.concurrent.atomic.AtomicBoolean
@@ -16,6 +15,10 @@ import java.util.concurrent.atomic.AtomicReference
  * Wallpapers loader
  */
 class WebFetcher {
+    private static final String EMPTY_PREFIX = "------------"
+    private static final String OK_PREFIX = "- ok -------"
+    private static final String ERROR_PREFIX = "- error ----"
+    private static final Object consoleSynchronizer = new Object()
     private static ObjectMapper objectMapper = new ObjectMapper()
     static {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
@@ -59,7 +62,7 @@ class WebFetcher {
                         it.dimensionY < (searchParameters.atLeast.split("x")[1].toInteger()) ||
                         (Math.round(((double) it.dimensionX / it.dimensionY) * scale) / scale !=
                                 Math.round(scale * searchParameters.ratio.split("x")[0].toDouble() / searchParameters.ratio.split("x")[1].toDouble()) / scale)) {
-                    print("image %s has wrong resolution(%dx%d)! It will not be downloaded%n".formatted it.id, it.dimensionX, it.dimensionY, lastMessage, lastMessageIsFinished, true)
+                    print("image %s has wrong resolution(%dx%d)! It will not be downloaded".formatted(it.id, it.dimensionX, it.dimensionY), lastMessage, lastMessageIsFinished, true)
                     finishedWithError.incrementAndGet()
                     return
                 }
@@ -105,8 +108,9 @@ class WebFetcher {
                 }
             } else
                 print("sfw error", lastMessage, lastMessageIsFinished, true)
-            def message = "finished %d/24%s".formatted(finished.get() + finishedWithError.get(), finishedWithError.get() == 0 ? "" :
-                    (" (" + finishedWithError.get() + " error" + (finishedWithError.get() > 1 ? "s" : "") + ")"))
+            def message = "finished %d/24%s %s".formatted(finished.get() + finishedWithError.get(), finishedWithError.get() == 0 ? "" :
+                    (" (" + finishedWithError.get() + " error" + (finishedWithError.get() > 1 ? "s" : "") + ")"),
+                    "+".repeat(finished.get()) + "-".repeat(finishedWithError.get()) + "=".repeat(24 - finished.get() - finishedWithError.get()))
             printFinished(message, lastMessage, lastMessageIsFinished)
         }
     }
@@ -119,18 +123,20 @@ class WebFetcher {
      * @param err should message be printed as error
      */
     private static synchronized void print(String message, AtomicReference<String> lastMessage, AtomicBoolean lastMessageIsFinished, boolean err = false) {
-        if (lastMessageIsFinished.get()) {
-            eraseLine()
-        }
-        if (err)
-            System.err.println(message)
-        else
-            println message
-        if (lastMessageIsFinished.get()) {
-            println lastMessage.get()
-        } else {
-            lastMessageIsFinished.set(false)
-            lastMessage.set(message)
+        synchronized (consoleSynchronizer) {
+            if (lastMessageIsFinished.get()) {
+                eraseLine()
+            }
+            if (err)
+                System.err.println(ERROR_PREFIX + " " + message)
+            else
+                println OK_PREFIX + " " + message
+            if (lastMessageIsFinished.get()) {
+                println EMPTY_PREFIX + " " + lastMessage.get()
+            } else {
+                lastMessageIsFinished.set(false)
+                lastMessage.set(message)
+            }
         }
     }
 
@@ -141,19 +147,23 @@ class WebFetcher {
      * @param lastMessageIsFinished is last printed message matches finished%d/24...
      */
     private static synchronized void printFinished(String message, AtomicReference<String> lastMessage, AtomicBoolean lastMessageIsFinished) {
-        if (lastMessageIsFinished.get()) {
-            eraseLine()
+        synchronized (consoleSynchronizer) {
+            if (lastMessageIsFinished.get()) {
+                eraseLine()
+            }
+            println EMPTY_PREFIX + " " + message
+            lastMessage.set(message)
+            lastMessageIsFinished.set(true)
         }
-        println message
-        lastMessage.set(message)
-        lastMessageIsFinished.set(true)
     }
 
     /**
      * erases previous line
      */
     private static void eraseLine() {
-        System.out.printf("\033[%dA", 1)
-        System.out.print("\033[2K")
+        synchronized (consoleSynchronizer) {
+            System.out.printf("\033[%dA", 1)
+            System.out.print("\033[2K")
+        }
     }
 }
