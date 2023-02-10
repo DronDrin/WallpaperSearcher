@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="shortcut icon" href="images/mine.png" type="image/x-icon">
+    <title>Сапёр</title>
+</head>
+
+<body>
+    <nav class="menu">
+        <div class="menu__burger">
+            <div class="menu__burger-line"></div>
+            <div class="menu__burger-line"></div>
+            <div class="menu__burger-line"> </div>
+        </div>
+        <div class="menu__body">
+            <div class="menu__body-item menu__body-item__inmenu">В меню</div>
+            <div class="menu__body-item menu__body-item__newgame">Заново</div>
+        </div>
+    </nav>
+    <div class="game-app" hidden>
+        <div class="wrapper">
+            <header class="header"></header>
+
+            <main class="page">
+                <div class="game-out">
+                    <div class="game" id="game">
+                    </div>
+                    <div class="game-botton">
+                        <div class="mines-counter">
+                            <img src="images/mine.png" alt="" class="mines-counter__left">
+                            <div class="mines-counter__counter"></div>
+                        </div>
+                        <input type="text" class="inputer">
+                        <div class="time-counter">
+                            <img src="images/clock.png" alt="" class="time-counter__left">
+                            <div class="time-counter__counter">00:00</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="footer">
+            </footer>
+        </div>
+    </div>
+    <div class="mode-app">
+        <div class="mode">
+            <h1 class="mode__header">Выберите режим:</h1>
+            <div class="mode__body">
+                <div class="mode__item mode-item" id="easy" onclick="selectMode(event)">
+                    <div class="mode-item__body">
+                        <div class="mode-item__name">Легкий</div>
+                        <div class="mode-item__size">10 на 10</div>
+                        <div class="mode-item__mines">10 мин</div>
+                    </div>
+                </div>
+                <div class="mode__item mode-item" id="medium" onclick="selectMode(event)">
+                    <div class="mode-item__body">
+                        <div class="mode-item__name">Средний</div>
+                        <div class="mode-item__size">16 на 16</div>
+                        <div class="mode-item__mines">40 мин</div>
+                    </div>
+                </div>
+                <div class="mode__item mode-item" id="hard" onclick="selectMode(event)">
+                    <div class="mode-item__body">
+                        <div class="mode-item__name">Сложный</div>
+                        <div class="mode-item__size">30 на 16</div>
+                        <div class="mode-item__mines">99 мин</div>
+                    </div>
+                </div>
+                <div class="mode__item mode-item" id="create" onclick="selectMode(event)">
+                    <div class="mode-item__body">
+                        <div class="mode-item__name">Свой</div>
+                        <div class="mode-item__size">от 7X7 до 100X100</div>
+                        <div class="mode-item__mines">1 - 1000 мин</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="create-out" hidden>
+        <form class="create">
+            <label for="create__width">Ширина: </label>
+            <input type="text" class="create__width" id="create__width"><br>
+            <label for="create__height">Высота: </label>
+            <input type="text" class="create__height" id="create__height"><br>
+            <label for="create__mines">Мины: </label>
+            <input type="text" class="create__mines" id="create__mines"><br>
+            <button id="createButton" type="button" onclick="selectMode(event)">Играть</button>
+        </form>
+    </div>
+    <div class="endModule">
+        <img src="images/error.png" alt="X" class="endModule__close" onclick="closeEndModule()">
+        <div class="endModule__text">Вы победили!</div>
+        <button class="endModule__newGame">ЗАНОВО</button>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/generator.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+
+</html>
