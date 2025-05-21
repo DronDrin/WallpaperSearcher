@@ -1,5 +1,5 @@
 <h1>Wallpaper searcher</h1>  
-<h3>Download wallpapers from wallpaper.cc</h3>  
+<h3>Download wallpapers from wallhaven.cc</h3>  
 
 ---
 
@@ -49,7 +49,7 @@ There are some parameters:
   * '-r', '--ratio': :needed ratio of wallpaper  
   * '-p', '--path': :directory to save wallpapers in. Parent of this directory must exist  
   * '-n', '--number-of-packages': :Wallpapers is downloaded by batches (packages). Size of one package - 24.  
-(Why? Because wallheaven.cc set this value as max query size)
+(Why? Because wallhaven.cc set this value as max query size)
 
 <h4>modes</h4>
 The program has two modes:  
